@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: 'Lucida Sans';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+body {
+  height: 100vh;
   background-color: #282c34;
-  min-height: 100vh;
+}
+
+header {
+  height: 10vh;
+  color: white;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+main {
+  min-height: 85vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer {
+  height: 5vh;
+  background-color: #0000003f;
 }
+
+button {
+  font-weight: 600;
+}
+/* HEADER */
+/* MAIN */
+.search_container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  & p {
+    color: white;
+  }
+
+  & button {
+    color: white;
+    border-radius: 5px;
+    background-color: gray;
+  }
+
+  .input,
+  & button {
+    padding: .1rem .5rem;
+  }
+
+  .input {
+    border-radius: 15px;
+    margin-right: 5px;
+  }
+
+  .search,
+  .filter {
+    margin: 5px 0;
+  }
+
+  /* .search {} */
+
+  .filter {
+    .radioInput {
+      display: flex;
+      flex-direction: column;
+      margin-top: 5px;
+      margin-left: 2rem;
+
+      .radio_container {
+        display: flex;
+        align-items: center;
+
+        & label {
+          color: white;
+          margin: 5px;
+        }
+      }
+    }
+  }
+
+}
+
+.resulat_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  justify-content: center;
+}
+/* FOOTER */

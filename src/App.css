@@ -11,25 +11,29 @@ body {
 }
 
 header {
-  height: 10vh;
+  min-height: 10vh;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  & h1 {
+    font-size: 10vw;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: url("../src/assets/world_map.webp");
+  }
 }
 
 main {
   min-height: 85vh;
 }
 
-footer {
-  height: 5vh;
-  background-color: #0000003f;
-}
-
 button {
   font-weight: 600;
 }
+
 /* HEADER */
 /* MAIN */
 .search_container {
@@ -91,4 +95,5 @@ button {
   justify-content: space-between;
   justify-content: center;
 }
+
 /* FOOTER */

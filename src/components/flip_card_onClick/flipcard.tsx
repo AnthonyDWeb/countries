@@ -29,10 +29,10 @@ export function FlipCard({
 					<p style={{textAlign: "center"}}>({data.translation?.fra.common})</p>
 					<div className={`card-information ${device}`}>
 						<div className="card-text-information">
-							<p>Native name: {data?.nativeName}</p>
-							<p>Capital: {data.capital}</p>
-							<p>Region: {data.region}</p>
-							<p>Population: {data.population}</p>
+							<p><span>Native name:</span>{data?.nativeName}</p>
+							<p><span>Capital:</span>{data.capital}</p>
+							<p><span>Region:</span>{data.region}</p>
+							<p><span>Population:</span>{data.population}</p>
 						</div>
 					</div>
 				</div>
@@ -45,10 +45,10 @@ export function FlipCard({
 
 	const Back = () => {
 		const position =
-			route === "capital" ? data.latlng.capital : data.latlng.country;
+			route === "capital" ? data?.latlng?.capital : data?.latlng?.country;
 		return (
 			<div className="back" onClick={() => action()}>
-				<LeafletMap position={position} device={device} route={route} name={data.name.toLowerCase()} />
+				<LeafletMap position={position} device={device} route={route} name={data?.name.toLowerCase()} />
 			</div>
 		);
 	};

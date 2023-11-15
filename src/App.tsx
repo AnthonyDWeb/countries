@@ -9,6 +9,7 @@ function App() {
 	const { device } = useDevice();
 	const [data, setData] = useState<any[]>();
 	const [selected, setSelected] = useState<string>("country");
+	const [route, setRoute] = useState<string>("name");
 	const [selectedCard, setSelectedCard] = useState<number>();
 	const dataInit = useRef<any[] | any>(getStorage("restcountries"));
 	const regions = useRef<any[] | any>(getStorage("restcountriesRegion"));
@@ -28,11 +29,13 @@ function App() {
 	}, [data]);
 
 	// FUNCTIONS
-	const handleRequest = async (route: string) =>
+	const handleRequest = async (route: string) => {
 		dataInit.current === null ? fetchData(route) : filtredData(route);
+		setSelectedCard(undefined)
+	}
+		
 
 	const fetchData = async (route: string) => {
-		console.log("fetchData");
 		const dataFetch = await getCountriesData(route);
 		dataFetch.length > 1 &&
 			dataFetch.sort((a: any, b: any) => (a.name > b.name ? 1 : -1));
@@ -59,7 +62,6 @@ function App() {
 	};
 
 	const filtredData = (route: string) => {
-		console.log("filtredData");
 		const routes = route.split("/");
 		let newData: any[] =
 			routes[0] === "all"
@@ -114,7 +116,10 @@ function App() {
 							name="countryByRegion"
 							id="input_countryByRegion"
 							placeholder="Choose your region"
-							onChange={(e) => handleRequest(`region/${e.target.value}`)}
+							onChange={(e) => {
+								setRoute("region");
+								handleRequest(`region/${e.target.value}`);
+							}}
 						/>
 						<label htmlFor="countryByRegion" />
 						<datalist id="browsers">
@@ -143,13 +148,14 @@ function App() {
 							<button
 								className="button"
 								id="btnShowData"
-								onClick={() =>
+								onClick={() => {
+									setRoute(selected === "country" ? "name" : selected);
 									handleRequest(
 										`${selected === "country" ? "name" : selected}/${
 											searchValue.current
 										}`
-									)
-								}
+									);
+								}}
 							>
 								Show Data
 							</button>
@@ -167,15 +173,15 @@ function App() {
 							<FlipCard
 								key={i}
 								data={e}
+								route={route}
 								select={selectedCard === i}
-								index={i}
 								action={() =>
 									setSelectedCard(selectedCard === i ? undefined : i)
 								}
 							/>
 						))
 					) : (
-						<h1 style={{color: "white"}}>loading...</h1>
+						<h1 style={{ color: "white" }}>loading...</h1>
 					)}
 				</section>
 			</main>

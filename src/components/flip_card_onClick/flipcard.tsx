@@ -2,46 +2,53 @@ import React from "react";
 import styled from "styled-components";
 import "./card.css";
 import useDevice from "../../utils/hooks/useDevice";
+import LeafletMap from "../map/leaflet_map";
 
 export function FlipCard({
 	data,
-	index,
+	route,
 	select,
 	action,
 }: {
 	data: any;
-	index: number;
+	route: string;
 	select: boolean;
 	action: any;
 }) {
 	const { device } = useDevice();
-
 	const Front = () => {
 		return (
 			<div className="front">
-				<img className={`card-flag ${device}`} src={data.flag} alt="" />
+				<img
+					className={`card-flag ${device}`}
+					src={data.flag.svg}
+					alt={data.flag.alt}
+				/>
 				<div className="front-information">
 					<p className={`card-name ${device}`}>{data.name}</p>
+					<p style={{textAlign: "center"}}>({data.translation?.fra.common})</p>
 					<div className={`card-information ${device}`}>
 						<div className="card-text-information">
-							<p className={`card-capital ${device}`}>
-								Capital: {data.capital}
-							</p>
-							<p className={`card-region ${device}`}>Region: {data.region}</p>
+							<p>Native name: {data?.nativeName}</p>
+							<p>Capital: {data.capital}</p>
+							<p>Region: {data.region}</p>
+							<p>Population: {data.population}</p>
 						</div>
 					</div>
 				</div>
 				<button className="btn_show_more" onClick={() => action()}>
-					More Info
+					View on Map
 				</button>
 			</div>
 		);
 	};
 
 	const Back = () => {
+		const position =
+			route === "capital" ? data.latlng.capital : data.latlng.country;
 		return (
-			<div className="back">
-				<p>BACK</p>
+			<div className="back" onClick={() => action()}>
+				<LeafletMap position={position} device={device} route={route} name={data.name.toLowerCase()} />
 			</div>
 		);
 	};
@@ -76,10 +83,10 @@ const Card = styled.div<{ device: string }>`
 	width: 100%;
 	height: ${(props) =>
 		props.device === "mobile"
-			? "60vh"
+			? "65vh"
 			: props.device === "tablet"
 			? "40vh"
-			: "60vh"};
+			: "65vh"};
 	border-radius: 1rem;
 	transition: transform 1.5s ease;
 	transform-style: preserve-3d;
